@@ -1,0 +1,32 @@
+{
+  "name": "test-http-server",
+  "version": "0.1.0",
+  "author": {
+    "name": "Tim Kuijsten",
+    "email": "tim@netsend.nl",
+    "url": "https://github.com/timkuijsten"
+  },
+  "license": "MIT",
+  "description": "Simple http test server",
+  "keywords": [
+    "http",
+    "test",
+    "server"
+  ],
+  "engines": {
+    "node": ">=0.8.4"
+  },
+  "main": "index",
+  "bugs": "https://github.com/timkuijsten/node-test-http-server/issues",
+  "devDependencies": {
+    "mocha": ">=1.8.2",
+    "should": ">=1.2.2"
+  },
+  "scripts": {
+    "test": "mocha ./test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/timkuijsten/node-test-http-server.git"
+  }
+}
