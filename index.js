@@ -120,7 +120,7 @@ proto.head = function head(url, cb, headers) {
 };
 
 proto.post = function post(url, data, cb, headers) {
-  if (!data) { throw new Error('provide data'); }
+  if (typeof data === 'undefined') { throw new Error('provide data'); }
   if (typeof data === 'function') { throw new TypeError('data can not be a function'); }
 
   cb = cb || function () {};
@@ -128,7 +128,7 @@ proto.post = function post(url, data, cb, headers) {
 };
 
 proto.put = function put(url, data, cb, headers) {
-  if (!data) { throw new Error('provide data'); }
+  if (typeof data === 'undefined') { throw new Error('provide data'); }
   if (typeof data === 'function') { throw new TypeError('data can not be a function'); }
 
   cb = cb || function () {};
@@ -136,7 +136,7 @@ proto.put = function put(url, data, cb, headers) {
 };
 
 proto.patch = function patch(url, data, cb, headers) {
-  if (!data) { throw new Error('provide data'); }
+  if (typeof data === 'undefined') { throw new Error('provide data'); }
   if (typeof data === 'function') { throw new TypeError('data can not be a function'); }
 
   cb = cb || function () {};
