@@ -7,20 +7,18 @@ Decorate webservers with easy to use client request methods.
     // start a new webserver
     var server = http.createServer();
 
-    // setup a simple echo server
-    server.on('request', function(req, res) {
-      req.pipe(res);
-    });
-
     // decorate server with .get(), .post(), .path() etc.
-    testHttpServer(server);
+    require('test-http-server')(server);
 
-    // post some data and expect it to be echo'd back
+    // setup and start a simple echo server
+    server.on('request', function(req, res) { req.pipe(res); });
+
     server.listen(1234, '127.0.0.1', function() {
       var data = 'foo';
 
+      // post some data and expect it to be echo'd back
       server.post('/some/url', data, function(response, body) {
-        // body is 'foo' because of the echo server
+        // post request is done and body is 'foo'
       });
     });
 

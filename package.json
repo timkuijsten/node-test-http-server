@@ -1,13 +1,13 @@
 {
   "name": "test-http-server",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": {
     "name": "Tim Kuijsten",
     "email": "tim@netsend.nl",
     "url": "https://github.com/timkuijsten"
   },
   "license": "MIT",
-  "description": "Simple http test server",
+  "description": "Decorate webservers with easy to use client request methods",
   "keywords": [
     "http",
     "test",
@@ -27,6 +27,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/timkuijsten/node-test-http-server.git"
+    "url": "https://github.com/timkuijsten/node-test-http-server.git"
   }
 }
