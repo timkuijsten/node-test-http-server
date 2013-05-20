@@ -103,41 +103,71 @@ proto.setBasicAuth = function setBasicAuth(username, password) {
   }
 };
 
-proto.get = function get(url, cb, headers) {
+proto.get = function get(url, headers, cb) {
+  headers = headers || {};
+  if (typeof headers === 'function') {
+    cb = headers;
+    headers = {};
+  }
   cb = cb || function () {};
   _putJSON.call(this, { url: url, method: 'GET', callback: cb, headers: headers });
 };
 
-proto.head = function head(url, cb, headers) {
+proto.head = function head(url, headers, cb) {
+  headers = headers || {};
+  if (typeof headers === 'function') {
+    cb = headers;
+    headers = {};
+  }
   cb = cb || function () {};
   _putJSON.call(this, { url: url, method: 'HEAD', callback: cb, headers: headers });
 };
 
-proto.post = function post(url, data, cb, headers) {
+proto.post = function post(url, data, headers, cb) {
   if (typeof data === 'undefined') { throw new Error('provide data'); }
   if (typeof data === 'function') { throw new TypeError('data can not be a function'); }
 
+  headers = headers || {};
+  if (typeof headers === 'function') {
+    cb = headers;
+    headers = {};
+  }
   cb = cb || function () {};
   _putJSON.call(this, { url: url, method: 'POST', data: data, callback: cb, headers: headers });
 };
 
-proto.put = function put(url, data, cb, headers) {
+proto.put = function put(url, data, headers, cb) {
   if (typeof data === 'undefined') { throw new Error('provide data'); }
   if (typeof data === 'function') { throw new TypeError('data can not be a function'); }
 
+  headers = headers || {};
+  if (typeof headers === 'function') {
+    cb = headers;
+    headers = {};
+  }
   cb = cb || function () {};
   _putJSON.call(this, { url: url, method: 'PUT', data: data, callback: cb, headers: headers });
 };
 
-proto.patch = function patch(url, data, cb, headers) {
+proto.patch = function patch(url, data, headers, cb) {
   if (typeof data === 'undefined') { throw new Error('provide data'); }
   if (typeof data === 'function') { throw new TypeError('data can not be a function'); }
 
+  headers = headers || {};
+  if (typeof headers === 'function') {
+    cb = headers;
+    headers = {};
+  }
   cb = cb || function () {};
   _putJSON.call(this, { url: url, method: 'PATCH', data: data, callback: cb, headers: headers });
 };
 
-proto.del = function del(url, cb, headers) {
+proto.del = function del(url, headers, cb) {
+  headers = headers || {};
+  if (typeof headers === 'function') {
+    cb = headers;
+    headers = {};
+  }
   cb = cb || function () {};
   _putJSON.call(this, { url: url, method: 'DELETE', callback: cb, headers: headers });
 };

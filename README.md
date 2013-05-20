@@ -41,48 +41,48 @@ Decorates the provided http server with with easy to use client request methods.
 
 Set credentials to be used with each request.
 
-### server.get(url, cb, [headers])
+### server.get(url, [headers], [cb])
 * url String
-* cb Function
 * headers Object
+* cb Function
 
 Do a get request. Callback is called with the response and the body.
 
-### server.head(url, cb, [headers])
+### server.head(url, [headers], [cb])
 * url String
-* cb Function
 * headers Object
+* cb Function
 
 Do a head request. Callback is called with the response and the body.
 
-### server.post(url, data, cb, [headers])
+### server.post(url, data, [headers], [cb])
 * url String
 * data {String|Object}
-* cb Function
 * headers Object
+* cb Function
 
 Do a post request. If data is an object, the default content-type will be application/json. Callback is called with the response and the body.
 
-### server.put(url, data, cb, [headers])
+### server.put(url, data, [headers], [cb])
 * url String
 * data {String|Object}
-* cb Function
 * headers Object
+* cb Function
 
 Do a put request. If data is an object, the default content-type will be application/json. Callback is called with the response and the body.
 
-### server.patch(url, data, cb, [headers])
+### server.patch(url, data, [headers], [cb])
 * url String
 * data {String|Object}
-* cb Function
 * headers Object
+* cb Function
 
 Do a patch request. If data is an object, the default content-type will be application/json. Callback is called with the response and the body.
 
-### server.del(url, cb, [headers])
+### server.del(url, [headers], [cb])
 * url String
-* cb Function
 * headers Object
+* cb Function
 
 Do a delete request. Callback is called with the response and the body.
 

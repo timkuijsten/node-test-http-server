@@ -19,7 +19,7 @@ function listenFireEchoAndClose(server, fire, done) {
     server.close(done);
   });
 
-  server.listen(1234, '0.0.0.0', fire);
+  server.listen(1234, '127.0.0.1', fire);
 }
 
 describe('TestHttpServer', function () {
@@ -148,6 +148,74 @@ describe('TestHttpServer', function () {
           should.equal(body, 'foo');
           done();
         });
+      });
+    });
+  });
+
+  describe('patch', function () {
+    it('should send without callback', function(done) {
+      var server = new http.Server();
+      testHttpServer(server);
+
+      server.listen(1234, '127.0.0.1', function() {
+        server.patch('/', 'foo');
+      });
+
+      server.on('request', function(req, res) {
+        should.equal(req.method, 'PATCH');
+        res.end();
+        server.close(done);
+      });
+    });
+  });
+
+  describe('patch', function () {
+    it('should send custom headers', function(done) {
+      var server = new http.Server();
+      testHttpServer(server);
+
+      server.listen(1234, '127.0.0.1', function() {
+        server.patch('/', 'foo', { 'X-My-Header': 'foo bar' });
+      });
+
+      server.on('request', function(req, res) {
+        should.equal(req.headers['x-my-header'], 'foo bar');
+        res.end();
+        server.close(done);
+      });
+    });
+  });
+
+  describe('patch', function () {
+    it('should send custom headers and callback', function(done) {
+      var server = new http.Server();
+      testHttpServer(server);
+
+      server.listen(1234, '127.0.0.1', function() {
+        server.patch('/', 'foo', { 'X-My-Header': 'foo bar' }, function() {
+          server.close(done);
+        });
+      });
+
+      server.on('request', function(req, res) {
+        res.end();
+      });
+    });
+  });
+
+  describe('patch', function () {
+    it('should callback without custom headers', function(done) {
+      var server = new http.Server();
+      testHttpServer(server);
+
+      server.listen(1234, '127.0.0.1', function() {
+        server.patch('/', 'foo', function() {
+          server.close(done);
+        });
+      });
+
+      server.on('request', function(req, res) {
+        res.end();
       });
     });
   });
