@@ -1,45 +1,26 @@
-var util = require('util');
 var http = require('http');
 
 var proto = {};
 
 /**
- * Create a new http server decorated with easy to use client request methods.
+ * Decorate a http server with easy to use client request methods.
  *
- * @param {http.Server} [server]  optional http.Server to decorate
+ * @param {http.Server} server  http.Server to decorate
  */
-function TestHttpServer(server) {
-  if (server) {
-    if (!(server instanceof http.Server)) { throw new TypeError('server must be a http.Server'); }
+module.exports = function decorate(server) {
+  if (!server) { throw new Error('provide server'); }
+  if (!(server instanceof http.Server)) { throw new TypeError('server must be a http.Server'); }
 
-    // setup request methods on the given server
-    Object.keys(proto).forEach(function(key) {
-      if (server[key]) {
-        throw new Error('server already has a property '+key);
-      }
+  // setup request methods on the given server
+  Object.keys(proto).forEach(function(key) {
+    if (server[key]) {
+      throw new Error('server already has a property ' + key);
+    }
 
-      server[key] = proto[key];
-    });
+    server[key] = proto[key];
+  });
 
-    return server;
-  } else {
-    http.Server.call(this);
-  }
-}
-util.inherits(TestHttpServer, http.Server);
-module.exports = TestHttpServer;
-
-/**
- * Set basic authentication for all requests.
- *
- * @param {String} username  the username to submit
- * @param {String} password  the password to submit
- */
-proto.setBasicAuth = function setBasicAuth(username, password) {
-  this.basicAuth = null;
-  if (typeof username === 'string' || typeof password === 'string') {
-    this.basicAuth = new Buffer('' + username + ':' + password).toString('base64');
-  }
+  return server;
 };
 
 function _putJSON(spec) {
@@ -109,6 +90,19 @@ function _putJSON(spec) {
   req.end();
 }
 
+/**
+ * Set basic authentication for all requests.
+ *
+ * @param {String} username  the username to submit
+ * @param {String} password  the password to submit
+ */
+proto.setBasicAuth = function setBasicAuth(username, password) {
+  this.basicAuth = null;
+  if (typeof username === 'string' || typeof password === 'string') {
+    this.basicAuth = new Buffer('' + username + ':' + password).toString('base64');
+  }
+};
+
 proto.get = function get(url, cb, headers) {
   cb = cb || function () {};
   _putJSON.call(this, { url: url, method: 'GET', callback: cb, headers: headers });
@@ -147,12 +141,3 @@ proto.del = function del(url, cb, headers) {
   cb = cb || function () {};
   _putJSON.call(this, { url: url, method: 'DELETE', callback: cb, headers: headers });
 };
-
-// setup prototype
-Object.keys(proto).forEach(function(key) {
-  if (TestHttpServer.prototype[key]) {
-    throw new Error('TestHttpServer already has a property '+key);
-  }
-
-  TestHttpServer.prototype[key] = proto[key];
-});

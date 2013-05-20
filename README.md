@@ -1,30 +1,24 @@
 # test-http-server
 
-Small utility to easily test webservers.
+Decorate webservers with easy to use client request methods.
 
 ## Usage
 
-    // let the library create a new web server. 
-    var TestHttpServer = require('test-http-server');
-    var server = new TestHttpServer();
-    server.listen(1234, '127.0.0.1', function() {
-      server.get('/some/url', function(response, body) {
-        // do some stuff with the response or the body
-      });
-    });
-
-    // or use an existing web server. 
+    // start a new webserver
     var server = http.createServer();
-    new TestHttpServer(server);
 
     // setup a simple echo server
     server.on('request', function(req, res) {
       req.pipe(res);
     });
 
+    // decorate server with .get(), .post(), .path() etc.
+    testHttpServer(server);
+
     // post some data and expect it to be echo'd back
     server.listen(1234, '127.0.0.1', function() {
       var data = 'foo';
+
       server.post('/some/url', data, function(response, body) {
         // body is 'foo' because of the echo server
       });
@@ -36,10 +30,10 @@ Small utility to easily test webservers.
 
 ## API
 
-### TestHttpServer([server])
-* server http.Server, default new http.Server()
+### testHttpServer(server)
+* server http.Server
 
-Decorates the provided or a new http server with with easy to use client request methods.
+Decorates the provided http server with with easy to use client request methods.
 
 ### server.setBasicAuth(username, password)
 * username String
